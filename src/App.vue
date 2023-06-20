@@ -1,10 +1,23 @@
 <script setup>
+import { Authenticator } from '@aws-amplify/ui-vue'
+import '@aws-amplify/ui-vue/styles.css'
+import { Amplify } from 'aws-amplify'
+import awsconfig from './aws-exports'
+
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+
+Amplify.configure(awsconfig)
 </script>
 
 <template>
-  <header>
+  <authenticator>
+    <template v-slot="{ user, signOut }">
+      <h1>hello {{ user.username }}</h1>
+      <button @click="signOut">Sign out</button>
+    </template>
+  </authenticator>
+  <!-- <header>
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
@@ -14,7 +27,7 @@ import TheWelcome from './components/TheWelcome.vue'
 
   <main>
     <TheWelcome />
-  </main>
+  </main> -->
 </template>
 
 <style scoped>
